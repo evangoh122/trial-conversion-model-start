@@ -35,4 +35,9 @@ def predict(request: PredictionRequest) -> PredictionResponse:
     #   1. Turn the request into a one-row DataFrame (model_dump gives you a dict).
     #   2. Score it with predict_proba and round to 4 decimals.
     #   3. Turn the probability into a band, and return the PredictionResponse.
-    raise NotImplementedError
+    row = pd.DataFrame([request.model_dump()])
+    probability = round(float(predict_proba(model, row).iloc[0]), 4)
+    return PredictionResponse(
+        conversion_probability=probability, 
+        band=to_band(probability),
+        )
