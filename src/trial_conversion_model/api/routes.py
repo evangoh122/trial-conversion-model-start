@@ -39,5 +39,5 @@ def predict(request: PredictionRequest) -> PredictionResponse:
     probability = round(float(predict_proba(model, row).iloc[0]), 4)
     return PredictionResponse(
         conversion_probability=probability, 
-        band=to_band(probability),
+        conversion_band=to_band(probability),
         )
