@@ -1,3 +1,6 @@
+# User Comments
+Working on docker outside of databricks env
+
 # trial-conversion-model
 
 Predicts, from a trial's first 3 days of behavior, whether the trial will convert to a paid plan at the end of day 14, so the growth team can reach trials that look unlikely to convert while they are still live. The business case and rollout plan are in the model plan document.
