@@ -27,7 +27,23 @@ This writes `data/01_raw/trial_snapshot.csv`. Training always runs from that fil
 uv run scripts/train.py
 ```
 
-This builds the processed training table from the raw extract, trains the model, and writes `models/model.json` and `models/metrics.json`.
+This builds the processed training table from the raw extract, trains the model, and writes `models/model.json` and `models/metrics.json`. Every run is recorded in MLflow.
+
+### Tune hyperparameters
+
+```
+uv run scripts/train.py --sweep
+```
+
+This tries every combination of the grid at the top of `scripts/train.py` (54 by default) and logs one MLflow run per combination to the `trial-conversion-sweep` experiment, with the full parameter set, train AUC, and held-out test AUC. Sweep runs skip model artifacts. The best combination is then retrained once and logged as a model in a final `best-model` run, along with `sweep_results.csv` so all runs can be compared at once.
+
+Cap the number of combinations with `--max-runs`:
+
+```
+uv run scripts/train.py --sweep --max-runs 12
+```
+
+Browse the runs at `uv run mlflow ui --backend-store-uri sqlite:///mlflow.db`.
 
 ## Serve
 
@@ -96,7 +112,7 @@ HTTP/1.1 422 Unprocessable Entity
 ## Layout
 
 - `src/trial_conversion_model/`: the package. `data.py` acquires the extract from the database and loads the pipeline's inputs; `features.py` derives the model features from the snapshot's base aggregates and writes the processed training table; `train.py` trains, evaluates, and saves the model; `predict.py` scores trials from their base aggregates; `api/` is the FastAPI service (`main.py` builds the app, `routes.py` holds the endpoints, `schemas.py` defines the request and response shapes).
-- `scripts/`: thin entry points that call into the package (`fetch_data.py` materializes the extract, `train.py` builds the training table and trains). Production runs these; the logic stays importable and testable in `src/`.
+- `scripts/`: thin entry points that call into the package (`fetch_data.py` materializes the extract, `train.py` builds the training table and trains, or grid-searches with `--sweep`). Production runs these; the logic stays importable and testable in `src/`.
 - `notebooks/`: exploration only. Notebooks import from the package; no pipeline logic lives here.
 - `data/01_raw/`: the immutable extract as pulled from the database (never committed, never modified).
 - `data/02_interim/`: reserved for intermediate outputs in multi-step pipelines; this project goes straight from raw to processed, so it stays empty.
