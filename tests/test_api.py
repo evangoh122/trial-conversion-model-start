@@ -35,7 +35,6 @@ def test_predict_returns_a_probability_and_a_band():
     # TODO: post VALID_TRIAL to /predict and assert three things: that the
     # request succeeded, that the conversion probability sits between 0 and
     # 1, and that the band is one of low, medium or high.
-    
 
 
 def test_predict_rejects_a_request_missing_a_field():

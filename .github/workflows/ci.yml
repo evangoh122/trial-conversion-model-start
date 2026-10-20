@@ -44,7 +44,7 @@ jobs:
         run: uv run pytest
 
       - name: Build the service image
-        run: docker build -t trial-conversion-model:${{ github.sha }} .
+        run: docker build --build-arg GIT_SHA=${{ github.sha }} -t trial-conversion-model:${{ github.sha }} .
 
   publish:
     needs: ci
@@ -81,7 +81,7 @@ jobs:
       - name: Build and push the image
         run: |
           IMAGE=ghcr.io/evangoh122/trial-conversion-model
-          docker build -t $IMAGE:latest -t $IMAGE:${{ github.sha }} .
+          docker build --build-arg GIT_SHA=${{ github.sha }} -t $IMAGE:latest -t $IMAGE:${{ github.sha }} .
           docker push $IMAGE:latest
           docker push $IMAGE:${{ github.sha }}
 

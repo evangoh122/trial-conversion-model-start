@@ -8,6 +8,9 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
 WORKDIR /app
 
+ARG GIT_SHA=unknown
+ENV GIT_SHA=$GIT_SHA
+
 # Dependencies first, so code changes do not re-install the world.
 # README.md rides along because pyproject.toml declares it as the
 # package readme, and the package cannot build without it.
