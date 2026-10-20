@@ -29,17 +29,6 @@ jobs:
       - name: Lint
         run: uv run ruff check .
 
-      # TEMPORARY: remove once the 403 is fixed
-      - name: Debug AWS access
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ap-southeast-1
-        run: |
-          aws sts get-caller-identity
-          aws s3api head-object --bucket trial-conversion-artifacts-evangoh --key models/model.json
-          aws s3api get-bucket-location --bucket trial-conversion-artifacts-evangoh
-
       - name: Pull the model from S3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
