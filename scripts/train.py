@@ -38,7 +38,7 @@ def configure(experiment: str) -> None:
     """Point MLflow at the project's SQLite store and select the experiment."""
     mlflow.set_tracking_uri(os.environ["MLFLOW_TRACKING_URI"])
     mlflow.set_experiment(experiment)
-    
+
     # previous one we are changing it now to use the environment variable for mlflow tracking uri.
     # mlflow.set_tracking_uri(f"sqlite:///{(PROJECT_ROOT / 'mlflow.db').as_posix()}")
     # mlflow.set_experiment(experiment)
