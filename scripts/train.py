@@ -8,6 +8,10 @@ import mlflow.xgboost
 import pandas as pd
 from mlflow.models import infer_signature
 from sklearn.metrics import roc_auc_score
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
 
 from trial_conversion_model.features import build_training_data
 from trial_conversion_model.train import (
@@ -32,8 +36,12 @@ GRID = {
 
 def configure(experiment: str) -> None:
     """Point MLflow at the project's SQLite store and select the experiment."""
-    mlflow.set_tracking_uri(f"sqlite:///{(PROJECT_ROOT / 'mlflow.db').as_posix()}")
+    mlflow.set_tracking_uri(os.environ["MLFLOW_TRACKING_URI"])
     mlflow.set_experiment(experiment)
+    
+    # previous one we are changing it now to use the environment variable for mlflow tracking uri.
+    # mlflow.set_tracking_uri(f"sqlite:///{(PROJECT_ROOT / 'mlflow.db').as_posix()}")
+    # mlflow.set_experiment(experiment)
 
 
 def combinations(grid: dict) -> list[dict]:
