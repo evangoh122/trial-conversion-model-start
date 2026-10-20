@@ -1,9 +1,8 @@
 import numpy as np
 import pandas as pd
 
-from trial_conversion_model.features import add_features, DAY_COLUMNS
 from trial_conversion_model.api.routes import to_band
-
+from trial_conversion_model.features import add_features
 
 
 def make_row(**overrides):

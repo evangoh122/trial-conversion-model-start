@@ -1,16 +1,16 @@
 import argparse
 import itertools
+import os
 import tempfile
 from pathlib import Path
 
 import mlflow
 import mlflow.xgboost
 import pandas as pd
+from dotenv import load_dotenv
 from mlflow.models import infer_signature
 from sklearn.metrics import roc_auc_score
-import os
 
-from dotenv import load_dotenv
 load_dotenv()
 
 from trial_conversion_model.features import build_training_data
