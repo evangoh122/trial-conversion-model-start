@@ -25,9 +25,3 @@ COPY models/model.json models/model.json
 
 EXPOSE 8000
 CMD ["uv", "run", "--no-sync", "uvicorn", "trial_conversion_model.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
-
-ARG GIT_SHA=unknown
- - name: Build the service image
-   run: docker build --build-arg GIT_SHA=${{github.sha}} -t trial-conversion-model:${{github.sha}} .
-and in publish:
-    docker build --build-arg GIT_SHA=${{github.sha}} -t $IMAGE:latest -t $IMAGE:${{ github.sha }} .
