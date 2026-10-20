@@ -4117,9 +4117,11 @@ source = { editable = "." }
 dependencies = [
     { name = "boto3" },
     { name = "fastapi" },
+    { name = "httpx" },
     { name = "mlflow" },
     { name = "pandas" },
     { name = "psycopg2-binary" },
+    { name = "pytest" },
     { name = "python-dotenv" },
     { name = "scikit-learn" },
     { name = "sqlalchemy" },
@@ -4141,9 +4143,11 @@ dev = [
 requires-dist = [
     { name = "boto3", specifier = ">=1.43.115" },
     { name = "fastapi", specifier = ">=0.141.1" },
+    { name = "httpx", specifier = ">=0.27" },
     { name = "mlflow", specifier = "==3.17.1" },
     { name = "pandas", specifier = ">=2.2,<3" },
     { name = "psycopg2-binary", specifier = ">=2.9.12" },
+    { name = "pytest", specifier = ">=8.0" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
     { name = "scikit-learn", specifier = ">=1.9.0" },
     { name = "sqlalchemy", specifier = ">=2.0.51" },
