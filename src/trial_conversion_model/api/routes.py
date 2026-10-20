@@ -5,6 +5,7 @@ from fastapi import APIRouter
 
 from trial_conversion_model.api.schemas import PredictionRequest, PredictionResponse
 from trial_conversion_model.predict import load_model, predict_proba
+from importlib.metadata import version
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +26,8 @@ def to_band(probability: float) -> str:
 
 @router.get("/health")
 def health() -> dict:
-    return {"status": "ok"}
+    return {"status": "ok",
+            "version":version("trial-conversion-model")}
 
 
 @router.post("/predict", response_model=PredictionResponse)
