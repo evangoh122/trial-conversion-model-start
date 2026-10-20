@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 .venv/
 .ipynb_checkpoints/
+.claude
 
 # macOS
 .DS_Store

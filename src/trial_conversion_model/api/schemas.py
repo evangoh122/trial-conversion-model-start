@@ -1,5 +1,7 @@
 from typing import Literal
+
 from pydantic import BaseModel
+
 
 class PredictionRequest(BaseModel):
     """One trial's first-3-day base aggregates, as the caller knows them."""
